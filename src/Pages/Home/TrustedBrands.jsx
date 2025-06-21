@@ -24,7 +24,7 @@ const TrustedBrands = () => {
             <img
               src={logo}
               alt={`logo-${index}`}
-              className="h-16 opacity-80 hover:opacity-100 transition duration-300 w-24 "
+              className="h-12 opacity-80 hover:opacity-100 transition duration-300 w-16 "
             />
           </div>
         ))}
