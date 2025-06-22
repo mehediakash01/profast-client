@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 import Logo from "../Logo/Logo";
 
+
 const Navbar = () => {
     const navLink = <ul className="space-x-4">
     <NavLink to={'/'}>Home</NavLink>
@@ -13,6 +14,7 @@ const Navbar = () => {
     
     
     </ul>
+  
   return (
    <div className="navbar bg-base-100 shadow-sm">
   <div className="navbar-start">

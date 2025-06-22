@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router";
-import MainLayout from "./Layout/MainLayout";
-import ErrorPage from "./Pages/Error/ErrorPage";
-import Home from "./Pages/Home/Home";
-import Coverage from "./Pages/Coverage/Coverage";
-import AuthLayout from "./Layout/AuthLayout";
-import Login from "./Featurers/auth/Login";
-import Register from "./Featurers/auth/Register";
+import MainLayout from "../Layout/MainLayout";
+import ErrorPage from "../Pages/Error/ErrorPage";
+import Home from "../Pages/Home/Home";
+import Coverage from "../Pages/Coverage/Coverage";
+import AuthLayout from "../Layout/AuthLayout";
+import Login from "../Featurers/auth/Login";
+import Register from "../Featurers/auth/Register";
 
 export const router = createBrowserRouter([
   {

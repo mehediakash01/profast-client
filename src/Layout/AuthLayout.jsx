@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../Components/Logo/Logo";
-import { Outlet } from "react-router";
+import { Link, Outlet } from "react-router";
 import parcel from "../assets/parcel.png";
 
 const AuthLayout = () => {
@@ -10,7 +10,9 @@ const AuthLayout = () => {
       <div className="w-full md:w-1/2 px-6 py-8 flex flex-col">
         <div className="mb-6 w-[120px]">
          
-          <Logo />
+          <Link to={'/'}>
+            <Logo />
+          </Link>
         </div>
 
         <div className="flex-1 flex items-center justify-center">

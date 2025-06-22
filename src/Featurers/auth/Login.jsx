@@ -19,7 +19,7 @@ const Login = () => {
         </div>
         <button className="btn btn-primary  w-[320px]  text-secondary mt-4 ">Login</button>
           <div>
-          <a >Don't Have an account? <Link to={'/auth/register'} className="link link-primary">Register</Link></a>
+          <p>Don't Have an account? <Link to={'/auth/register'} className="link link-primary">Register</Link></p>
         </div>
       </form>
       <SocialLogin></SocialLogin>

@@ -21,12 +21,12 @@ const Register = () => {
           Register
         </button>
         <div>
-          <a>
+          <p>
             already Have an account?{" "}
             <Link to={"/auth/login"} className="link link-primary">
               login
             </Link>
-          </a>
+          </p>
         </div>
       </form>
       <SocialLogin></SocialLogin>
