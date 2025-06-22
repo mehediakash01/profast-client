@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import Logo from "../Logo/Logo";
 
 const Navbar = () => {
@@ -34,7 +34,7 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end space-x-1">
-    <button className="btn ">sign in</button>
+    <Link to={'/auth/login'}><button className="btn ">sign in</button></Link>
     <button className="btn btn-primary text-black">be a rider</button>
   </div>
 </div>
