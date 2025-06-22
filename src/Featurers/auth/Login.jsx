@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
+import SocialLogin from "./SocialLogin";
 
 const Login = () => {
   return (
@@ -16,11 +17,12 @@ const Login = () => {
         <div>
           <a className="link link-hover">Forgot password?</a>
         </div>
-        <button className="btn btn-neutral mt-4 w-fit">Login</button>
+        <button className="btn btn-primary  w-[320px]  text-secondary mt-4 ">Login</button>
           <div>
           <a >Don't Have an account? <Link to={'/auth/register'} className="link link-primary">Register</Link></a>
         </div>
       </form>
+      <SocialLogin></SocialLogin>
     </div>
   );
 };
