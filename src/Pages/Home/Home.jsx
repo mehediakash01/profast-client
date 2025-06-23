@@ -5,6 +5,7 @@ import OurServices from './OurServices';
 import TrustedBrands from './TrustedBrands';
 import ServiceHighlights from './ServiceHighlights';
 import Marchent from './Marchent';
+import FrequentlyAsked from './FrequentlyAsked';
 
 const Home = () => {
     return (
@@ -15,6 +16,7 @@ const Home = () => {
           <TrustedBrands></TrustedBrands>
           <ServiceHighlights></ServiceHighlights>
           <Marchent></Marchent>
+          <FrequentlyAsked></FrequentlyAsked>
         </div>
     );
 };
