@@ -1,11 +1,21 @@
 import React from "react";
+import useAuthContext from "../../Hooks/useAuthContext";
+import toast from "react-hot-toast";
 
 const SocialLogin = () => {
+ const {googleLogin} = useAuthContext()
+ const handleGoogle = ()=>{
+  googleLogin().then(()=>{
+    toast.success('Google login Successful!');
+  }).catch(err=>{
+   toast.error(`${err.message}`);
+  })
+ }
   return (
     <div className="w-[320px]">
       <div className="divider ">OR</div>
 
-      <button className="btn w-[320px]   bg-[#E9ECF1] text-black border-[#e5e5e5]">
+      <button onClick={handleGoogle} className="btn w-[320px]   bg-[#E9ECF1] text-black border-[#e5e5e5]">
         <svg
           aria-label="Google logo"
           width="16"
