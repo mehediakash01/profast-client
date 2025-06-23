@@ -4,6 +4,7 @@ import HowItWorks from './HowItWorks';
 import OurServices from './OurServices';
 import TrustedBrands from './TrustedBrands';
 import ServiceHighlights from './ServiceHighlights';
+import Marchent from './Marchent';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
           <OurServices></OurServices>
           <TrustedBrands></TrustedBrands>
           <ServiceHighlights></ServiceHighlights>
+          <Marchent></Marchent>
         </div>
     );
 };

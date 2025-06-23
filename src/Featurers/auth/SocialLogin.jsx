@@ -1,21 +1,29 @@
 import React from "react";
 import useAuthContext from "../../Hooks/useAuthContext";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 const SocialLogin = () => {
- const {googleLogin} = useAuthContext()
- const handleGoogle = ()=>{
-  googleLogin().then(()=>{
-    toast.success('Google login Successful!');
-  }).catch(err=>{
-   toast.error(`${err.message}`);
-  })
- }
+  const { googleLogin } = useAuthContext();
+  const navigate = useNavigate();
+  const handleGoogle = () => {
+    googleLogin()
+      .then(() => {
+        toast.success("Google login Successful!");
+        navigate("/");
+      })
+      .catch((err) => {
+        toast.error(`${err.message}`);
+      });
+  };
   return (
     <div className="w-[320px]">
       <div className="divider ">OR</div>
 
-      <button onClick={handleGoogle} className="btn w-[320px]   bg-[#E9ECF1] text-black border-[#e5e5e5]">
+      <button
+        onClick={handleGoogle}
+        className="btn w-[320px]   bg-[#E9ECF1] text-black border-[#e5e5e5]"
+      >
         <svg
           aria-label="Google logo"
           width="16"
