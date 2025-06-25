@@ -6,6 +6,7 @@ import Coverage from "../Pages/Coverage/Coverage";
 import AuthLayout from "../Layout/AuthLayout";
 import Login from "../Featurers/auth/Login";
 import Register from "../Featurers/auth/Register";
+import AddParcelForm from "../Pages/AddPercel/AddParcelForm";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,11 @@ export const router = createBrowserRouter([
         loader: () => fetch("./warehouses.json"),
         Component: Coverage,
       },
+      {
+        path:"/price",
+         loader: () => fetch("./warehouses.json"),
+        Component:AddParcelForm
+      }
     ],
   },
   {
