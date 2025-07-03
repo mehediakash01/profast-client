@@ -1,7 +1,8 @@
 import React from 'react';
 import location from '../../assets/location-merchant.png'
 import merchantBg from '../../assets/be-a-merchant-bg.png';
-import Container from '../../../reuseAble/Container';
+import Container from '../../Components/reuseAble/Container';
+
 const Marchent = () => {
     return (
         <Container>

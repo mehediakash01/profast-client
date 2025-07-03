@@ -1,5 +1,6 @@
 import React from "react";
-import Container from "../../../reuseAble/Container";
+import Container from "../../Components/reuseAble/Container";
+
 
 const FrequentlyAsked = () => {
   return (
