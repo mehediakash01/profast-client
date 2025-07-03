@@ -6,6 +6,7 @@ import withReactContent from "sweetalert2-react-content";
 import { v4 as uuidv4 } from "uuid";
 import useAuthContext from "../../Hooks/useAuthContext";
 import useTitle from "../../Hooks/useTitle";
+import { useLoaderData } from "react-router";
 
 const MySwal = withReactContent(Swal);
 
@@ -32,11 +33,7 @@ const AddParcelForm = () => {
   const senderRegion = watch("senderRegion");
   const senderDistrict = watch("senderDistrict");
 
-  const warehouseData = [
-    { region: "Rangpur", district: "Nilphamari", city: "Nilphamari" },
-    { region: "Dhaka", district: "Gazipur", city: "Tongi" },
-    { region: "Sylhet", district: "Moulvibazar", city: "Sreemangal" },
-  ];
+  const warehouseData = useLoaderData();
 
   const uniqueRegions = [...new Set(warehouseData.map((item) => item.region))];
   const getDistricts = (region) =>
@@ -61,7 +58,7 @@ const AddParcelForm = () => {
     const id = uuidv4();
     const createdAt = new Date().toISOString();
     const paymentStatus = "unpaid";
-    const deliveryStatus = "processing";
+    const deliveryStatus = "Pending";
 
     if (parcelType === "Document") {
       price = outside ? 80 : 60;
@@ -129,6 +126,9 @@ const AddParcelForm = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
+
+
+        
         setTotalPrice(price);
         Swal.fire(
           "✅ Booking Confirmed!",
@@ -146,7 +146,9 @@ const AddParcelForm = () => {
           paymentStatus,
           trackingId: id,
         };
+          console.log(parcelData);
       }
+    
     });
   };
 
