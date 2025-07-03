@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import useAuthContext from "../../Hooks/useAuthContext";
 import useTitle from "../../Hooks/useTitle";
 import { useLoaderData } from "react-router";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const MySwal = withReactContent(Swal);
 
@@ -20,7 +21,7 @@ const AddParcelForm = () => {
   } = useForm();
 
   const { user } = useAuthContext();
-
+  const axiosSecure = useAxiosSecure();
   const [selectedSenderRegion, setSelectedSenderRegion] = React.useState("");
   const [selectedReceiverRegion, setSelectedReceiverRegion] =
     React.useState("");
@@ -126,15 +127,7 @@ const AddParcelForm = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-
-
-        
         setTotalPrice(price);
-        Swal.fire(
-          "✅ Booking Confirmed!",
-          `Total Delivery Charge: ৳${price}`,
-          "success"
-        );
 
         const parcelData = {
           ...data,
@@ -146,9 +139,20 @@ const AddParcelForm = () => {
           paymentStatus,
           trackingId: id,
         };
-          console.log(parcelData);
+        console.log(parcelData);
+
+        axiosSecure.post(`parcels`, parcelData).then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              title: "Redirecting...",
+              text: "proceeding to payment gateway",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+          }
+        });
       }
-    
     });
   };
 
