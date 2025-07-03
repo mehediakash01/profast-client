@@ -5,10 +5,12 @@ import withReactContent from "sweetalert2-react-content";
 
 import { v4 as uuidv4 } from "uuid";
 import useAuthContext from "../../Hooks/useAuthContext";
+import useTitle from "../../Hooks/useTitle";
 
 const MySwal = withReactContent(Swal);
 
 const AddParcelForm = () => {
+  useTitle("prices");
   const {
     register,
     handleSubmit,

@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import DistrictMap from "./DistrictMap";
 import { useLoaderData } from "react-router";
 import { FiSearch } from "react-icons/fi";
+import useTitle from "../../Hooks/useTitle";
 
 const Coverage = () => {
+  useTitle("coverage");
   const warehouse = useLoaderData(); // Used for search logic
   const [searchTerm, setSearchTerm] = useState("");
   const [targetCoords, setTargetCoords] = useState(null);

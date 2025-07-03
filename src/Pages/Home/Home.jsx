@@ -7,8 +7,10 @@ import ServiceHighlights from './ServiceHighlights';
 import Marchent from './Marchent';
 import FrequentlyAsked from './FrequentlyAsked';
 import CustomerReviews from './CustomerReviews';
+import useTitle from '../../Hooks/useTitle';
 
 const Home = () => {
+  useTitle("Home");
   const [reviewData,setReviewData]=useState([]);
   useEffect(()=>{
    fetch('/reviews.json').then(res=>res.json()).then(data=>setReviewData(data));
