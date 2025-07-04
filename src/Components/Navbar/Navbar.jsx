@@ -10,7 +10,7 @@ const Navbar = () => {
     <NavLink to={'/coverage'}>coverage</NavLink>
     <NavLink to={'/about'}>about us</NavLink>
     <NavLink to={'/price'}>pricing</NavLink>
-    <NavLink to={'/rider'}>be a Rider</NavLink>
+    <NavLink to={'/beRider'}>be a Rider</NavLink>
     
     
     </ul>
