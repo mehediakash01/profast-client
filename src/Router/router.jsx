@@ -8,6 +8,8 @@ import Login from "../Featurers/auth/Login";
 import Register from "../Featurers/auth/Register";
 import AddParcelForm from "../Pages/AddPercel/AddParcelForm";
 import BeRider from "../Pages/Rider/BeRider";
+import DashboardLayout from "../Layout/Dashboard/DashboardLayout";
+import DashHome from "../Layout/Dashboard/DashHome";
 
 export const router = createBrowserRouter([
   {
@@ -49,4 +51,14 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:'dashboard',
+    Component: DashboardLayout,
+    children: [
+      {
+        index : true,
+        Component: DashHome
+      }
+    ]
+  }
 ]);
