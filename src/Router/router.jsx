@@ -10,55 +10,65 @@ import AddParcelForm from "../Pages/AddPercel/AddParcelForm";
 import BeRider from "../Pages/Rider/BeRider";
 import DashboardLayout from "../Layout/Dashboard/DashboardLayout";
 import DashHome from "../Layout/Dashboard/DashHome";
+import MyParcel from "../Pages/MyPercel/MyParcel";
+import PrivateRoute from "../Router/PrivateRoute"
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    errorElement: <ErrorPage></ErrorPage>,
-    Component: MainLayout,
+    errorElement: <ErrorPage />,
+    element: <MainLayout />,
     children: [
-      { index: true, Component: Home },
+      { index: true, element: <Home /> },
       {
         path: "coverage",
         loader: () => fetch("./warehouses.json"),
-        Component: Coverage,
+        element: <Coverage />,
       },
       {
-        path:"/price",
-         loader: () => fetch("./warehouses.json"),
-        Component:AddParcelForm
+        path: "price",
+        loader: () => fetch("./warehouses.json"),
+        element: <AddParcelForm />,
       },
       {
-        path:"/beRider",
-         loader: () => fetch("./warehouses.json"),
-       Component: BeRider
-      }
+        path: "beRider",
+        loader: () => fetch("./warehouses.json"),
+        element: <BeRider />,
+      },
     ],
   },
   {
     path: "/auth",
-    errorElement: <ErrorPage></ErrorPage>,
-    Component: AuthLayout,
-
+    errorElement: <ErrorPage />,
+    element: <AuthLayout />,
     children: [
       {
-        path: "/auth/login",
-        Component: Login,
+        path: "login", // ⚠️ Removed leading slash
+        element: <Login />,
       },
       {
-        path: "/auth/register",
-        Component: Register,
+        path: "register",
+        element: <Register />,
       },
     ],
   },
   {
-    path:'dashboard',
-    Component: DashboardLayout,
+    path: "dashboard",
+    errorElement: <ErrorPage />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
-        index : true,
-        Component: DashHome
-      }
-    ]
-  }
+        index: true,
+        element: <DashHome />,
+      },
+      {
+        path: "my-parcel",
+        element: <MyParcel />,
+      },
+    ],
+  },
 ]);
