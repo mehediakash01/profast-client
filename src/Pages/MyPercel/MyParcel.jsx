@@ -6,11 +6,12 @@ import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import useAuthContext from '../../Hooks/useAuthContext';
 import Loading from '../../Featurers/Loading/Loading';
 import { FaEye, FaTrash, FaMoneyBill } from 'react-icons/fa';
+import { useNavigate } from 'react-router';
 
 const MyParcel = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuthContext();
-
+const navigate = useNavigate();
   const { data: parcels = [], isLoading, isError, error, refetch } = useQuery({
     queryKey: ['parcels', user?.email],
     queryFn: async () => {
@@ -26,8 +27,7 @@ const MyParcel = () => {
   };
 
   const handlePay = (parcelId) => {
-    console.log('Pay:', parcelId);
-    // TODO: Implement redirect to payment
+   navigate(`/dashboard/payment/:${parcelId}`)
   };
 
   const handleDelete = async (parcelId) => {
