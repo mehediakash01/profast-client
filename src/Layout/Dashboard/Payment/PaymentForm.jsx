@@ -1,5 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { useParams } from "react-router";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Loading from "../../../Featurers/Loading/Loading";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -20,6 +24,25 @@ const PaymentForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 const [Error,setError] = useState('');
+
+const {id} = useParams();
+
+const AxiosSecure = useAxiosSecure();
+const {data:parcelInfo= {},isPending,isError}= useQuery({
+    queryKey:['parcels',id],
+    queryFn: async()=>{
+        const res = await AxiosSecure.get(`/parcels/${id}`);
+        return res.data;
+
+    }
+
+})
+{
+    isPending&& <Loading></Loading>
+}
+const Amount = parcelInfo.cost;
+const amountInCents = Amount*100;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -39,6 +62,34 @@ const [Error,setError] = useState('');
         setError('');
       console.log("[PaymentMethod]", paymentMethod);
     }
+
+    // post payment intent
+    const res = await AxiosSecure.post('/create-payment-intent',{
+        amountInCents,
+        
+        id,
+    })
+    const clientSecret = res.data.clientSecret
+  
+      // Step 2: Confirm the payment
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details:{
+            name:parcelInfo.senderName
+        }
+      },
+    });
+      if (result.error) {
+      console.log(result.error);
+    } else {
+      if (result.paymentIntent.status === "succeeded") {
+        console.log("Payment successful ✅");
+      }
+    }
+
+
+
   };
 
   return (
@@ -53,7 +104,7 @@ const [Error,setError] = useState('');
           disabled={!stripe}
           className="w-full bg-primary/80 text-black  py-2 px-4 rounded hover:bg-primary disabled:opacity-50"
         >
-          Pay for the parcel
+          Pay ${Amount}
         </button>
         {
             Error&& <p className="text-sm text-red-500">{Error.message}</p>

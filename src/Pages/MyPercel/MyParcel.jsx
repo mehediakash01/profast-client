@@ -27,7 +27,7 @@ const navigate = useNavigate();
   };
 
   const handlePay = (parcelId) => {
-   navigate(`/dashboard/payment/:${parcelId}`)
+   navigate(`/dashboard/payment/${parcelId}`)
   };
 
   const handleDelete = async (parcelId) => {
