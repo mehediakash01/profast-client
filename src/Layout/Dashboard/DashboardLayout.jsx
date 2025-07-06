@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet, NavLink } from "react-router";
+import Logo from "../../Components/Logo/Logo";
 
 const DashboardLayout = () => {
   return (
@@ -44,8 +45,9 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 space-y-2">
+        <ul className="menu bg-base-200 text-base-content min-h-full p-4 space-y-2">
           {/* Sidebar content here */}
+          <Logo></Logo>
           <li>
             <NavLink to="/dashboard">DashHome</NavLink>
           </li>
