@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Loading from "../../../Featurers/Loading/Loading";
+import useAuthContext from "../../../Hooks/useAuthContext";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -23,25 +24,24 @@ const CARD_ELEMENT_OPTIONS = {
 const PaymentForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-const [Error,setError] = useState('');
+  const [Error, setError] = useState("");
 
-const {id} = useParams();
+  const { id } = useParams();
+  const { user } = useAuthContext();
 
-const AxiosSecure = useAxiosSecure();
-const {data:parcelInfo= {},isPending,isError}= useQuery({
-    queryKey:['parcels',id],
-    queryFn: async()=>{
-        const res = await AxiosSecure.get(`/parcels/${id}`);
-        return res.data;
-
-    }
-
-})
-{
-    isPending&& <Loading></Loading>
-}
-const Amount = parcelInfo.cost;
-const amountInCents = Amount*100;
+  const AxiosSecure = useAxiosSecure();
+  const { data: parcelInfo = {}, isPending } = useQuery({
+    queryKey: ["parcels", id],
+    queryFn: async () => {
+      const res = await AxiosSecure.get(`/parcels/${id}`);
+      return res.data;
+    },
+  });
+  {
+    isPending && <Loading></Loading>;
+  }
+  const Amount = parcelInfo.cost;
+  const amountInCents = Amount * 100;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -51,45 +51,57 @@ const amountInCents = Amount*100;
     const card = elements.getElement(CardElement);
     if (!card) return;
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
 
     if (error) {
-     setError(error);
+      setError(error);
     } else {
-        setError('');
-      console.log("[PaymentMethod]", paymentMethod);
-    }
-
-    // post payment intent
-    const res = await AxiosSecure.post('/create-payment-intent',{
+      setError("");
+      //   console.log("[PaymentMethod]", paymentMethod);
+      // post payment intent
+      const res = await AxiosSecure.post("/create-payment-intent", {
         amountInCents,
-        
+
         id,
-    })
-    const clientSecret = res.data.clientSecret
-  
+      });
+      const clientSecret = res.data.clientSecret;
+
       // Step 2: Confirm the payment
-    const result = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-        billing_details:{
-            name:parcelInfo.senderName
-        }
-      },
-    });
+      const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+          billing_details: {
+            name: user.displayName,
+            email: user.email,
+          },
+        },
+      });
       if (result.error) {
-      console.log(result.error);
-    } else {
-      if (result.paymentIntent.status === "succeeded") {
-        console.log("Payment successful ✅");
+        setError(result.error);
+      } else {
+        setError("");
+        if (result.paymentIntent.status === "succeeded") {
+          const transactionId = result.paymentIntent.id;
+          console.log("Payment successful ✅");
+          console.log(result);
+          const paymentData = {
+            parcelId: id,
+            email: user.email,
+            amount: Amount,
+            transactionId: transactionId,
+           paymentMethod: result.paymentIntent.payment_method_types?.[0]
+          };
+
+          const paymentRes = await AxiosSecure.post('/payments',paymentData)
+           if(paymentRes.data.insertedId){
+            console.log('payment data has landed in mongol');
+          }
+        }
       }
     }
-
-
-
   };
 
   return (
@@ -106,9 +118,7 @@ const amountInCents = Amount*100;
         >
           Pay ${Amount}
         </button>
-        {
-            Error&& <p className="text-sm text-red-500">{Error.message}</p>
-        }
+        {Error && <p className="text-sm text-red-500">{Error.message}</p>}
       </form>
     </div>
   );
