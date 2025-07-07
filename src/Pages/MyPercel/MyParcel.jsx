@@ -11,8 +11,15 @@ import { useNavigate } from 'react-router';
 const MyParcel = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuthContext();
-const navigate = useNavigate();
-  const { data: parcels = [], isLoading, isError, error, refetch } = useQuery({
+  const navigate = useNavigate();
+
+  const {
+    data: parcels = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ['parcels', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels?email=${user?.email}`);
@@ -27,7 +34,7 @@ const navigate = useNavigate();
   };
 
   const handlePay = (parcelId) => {
-   navigate(`/dashboard/payment/${parcelId}`)
+    navigate(`/dashboard/payment/${parcelId}`);
   };
 
   const handleDelete = async (parcelId) => {
@@ -63,8 +70,6 @@ const navigate = useNavigate();
 
   return (
     <div className="overflow-x-auto p-4">
-    
-
       <h2 className="text-2xl font-bold mb-4">My Parcels</h2>
       <table className="table table-zebra w-full">
         <thead>
@@ -100,7 +105,7 @@ const navigate = useNavigate();
                     parcel.paymentStatus === 'unpaid' ? 'badge-error' : 'badge-success'
                   }`}
                 >
-                  {parcel.paymentStatus}
+                  {parcel.paymentStatus === 'paid' ? 'Paid' : 'Unpaid'}
                 </span>
               </td>
               <td>${parcel.cost}</td>
