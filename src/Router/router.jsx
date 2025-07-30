@@ -13,6 +13,7 @@ import DashHome from "../Layout/Dashboard/DashHome";
 import MyParcel from "../Pages/MyPercel/MyParcel";
 import PrivateRoute from "../Router/PrivateRoute"
 import Payment from "../Layout/Dashboard/Payment/Payment";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,11 @@ export const router = createBrowserRouter([
         path: "price",
         loader: () => fetch("./warehouses.json"),
         element: <AddParcelForm />,
+      },
+      {
+        path: "AboutUs",
+      
+        element: <AboutUs />,
       },
       {
         path: "beRider",

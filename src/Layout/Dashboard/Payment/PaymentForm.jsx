@@ -6,6 +6,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Loading from "../../../Featurers/Loading/Loading";
 import useAuthContext from "../../../Hooks/useAuthContext";
 import useTitle from "../../../Hooks/useTitle";
+import toast from "react-hot-toast";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -97,8 +98,10 @@ const PaymentForm = () => {
 
           const paymentRes = await AxiosSecure.post("/payments", paymentData);
           if (paymentRes.data.insertedId) {
-            console.log("Payment recorded ✅");
-            navigate("/dashboard/my-parcel"); // ✅ Redirects to refresh UI
+            toast.success(`✅ Payment successful!\nTxn ID: ${transactionId}`); // ✅ Success toast
+            setTimeout(() => {
+              navigate("/dashboard/my-parcel"); // ✅ Redirect after toast
+            }, 2000);
           }
         }
       }
