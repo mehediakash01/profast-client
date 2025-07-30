@@ -14,6 +14,7 @@ import MyParcel from "../Pages/MyPercel/MyParcel";
 import PrivateRoute from "../Router/PrivateRoute"
 import Payment from "../Layout/Dashboard/Payment/Payment";
 import AboutUs from "../Pages/AboutUs/AboutUs";
+import Story from "../Pages/AboutUs/AboutPages/Story";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,13 @@ export const router = createBrowserRouter([
         path: "AboutUs",
       
         element: <AboutUs />,
+        children:[
+          {
+            index: true,
+            Component: Story
+          }
+
+        ]
       },
       {
         path: "beRider",
