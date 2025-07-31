@@ -6,8 +6,8 @@ const AboutNav = () => {
         <div>
                  <ul className='flex gap-2 my-12'>
                <Link to={'/aboutUs'}>story</Link>
-               <Link>mission</Link>
-               <Link>success</Link>
+               <Link to={'/aboutUs/mission'}>mission</Link>
+               <Link to={'/aboutUs/success'}>success</Link>
                <Link>team & others</Link>
               </ul>
 

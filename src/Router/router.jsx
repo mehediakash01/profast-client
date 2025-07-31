@@ -15,6 +15,8 @@ import PrivateRoute from "../Router/PrivateRoute"
 import Payment from "../Layout/Dashboard/Payment/Payment";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import Story from "../Pages/AboutUs/AboutPages/Story";
+import Mission from "../Pages/AboutUs/AboutPages/Mission";
+import Success from "../Pages/AboutUs/AboutPages/Success";
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +43,16 @@ export const router = createBrowserRouter([
           {
             index: true,
             Component: Story
-          }
+          },
+          {
+            path:'mission',
+            Component: Mission
+          },
+          {
+            path:'success',
+            Component: Success
+          },
+
 
         ]
       },
