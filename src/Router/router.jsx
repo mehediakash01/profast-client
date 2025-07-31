@@ -17,6 +17,7 @@ import AboutUs from "../Pages/AboutUs/AboutUs";
 import Story from "../Pages/AboutUs/AboutPages/Story";
 import Mission from "../Pages/AboutUs/AboutPages/Mission";
 import Success from "../Pages/AboutUs/AboutPages/Success";
+import Team from "../Pages/AboutUs/AboutPages/Team";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
           {
             path:'success',
             Component: Success
+          },
+          {
+            path:'team',
+            Component: Team
           },
 
 

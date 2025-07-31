@@ -1,18 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react";
+import { Link, useLocation } from "react-router";
 
 const AboutNav = () => {
-    return (
-        <div>
-                 <ul className='flex gap-2 my-12'>
-               <Link to={'/aboutUs'}>story</Link>
-               <Link to={'/aboutUs/mission'}>mission</Link>
-               <Link to={'/aboutUs/success'}>success</Link>
-               <Link>team & others</Link>
-              </ul>
+  const location = useLocation();
+  const currentPath = location.pathname;
 
-        </div>
-    );
+  const links = [
+    { name: "story", to: "/aboutUs" },
+    { name: "mission", to: "/aboutUs/mission" },
+    { name: "success", to: "/aboutUs/success" },
+    { name: "team & others", to: "/aboutUs/team" }, 
+  ];
+
+  return (
+    <div>
+      <ul className="flex gap-4 my-12 text-xl font-semibold">
+        {links.map((link) => (
+          <li key={link.to}>
+            <Link
+              to={link.to}
+              className={`px-4 py-1 rounded-md transition-colors duration-200 ${
+                currentPath === link.to
+                  ? "text-secondary font-bold "
+                  : "text-gray-400 hover:text-secondary"
+              }`}
+            >
+              {link.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default AboutNav;
