@@ -6,9 +6,9 @@ import banner3 from '../../assets/banner/banner3.png'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 const Banner = () => {
     return (
-        <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false}>
+        <Carousel  autoPlay={true} infiniteLoop={true} showThumbs={false}>
                 <div>
-                    <img src={banner1} />
+                    <img  src={banner1} />
                   
                 </div>
                 <div>

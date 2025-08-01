@@ -11,13 +11,14 @@ import BeRider from "../Pages/Rider/BeRider";
 import DashboardLayout from "../Layout/Dashboard/DashboardLayout";
 import DashHome from "../Layout/Dashboard/DashHome";
 import MyParcel from "../Pages/MyPercel/MyParcel";
-import PrivateRoute from "../Router/PrivateRoute"
+import PrivateRoute from "../Router/PrivateRoute";
 import Payment from "../Layout/Dashboard/Payment/Payment";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import Story from "../Pages/AboutUs/AboutPages/Story";
 import Mission from "../Pages/AboutUs/AboutPages/Mission";
 import Success from "../Pages/AboutUs/AboutPages/Success";
 import Team from "../Pages/AboutUs/AboutPages/Team";
+import Nested from "../Components/Practice/Nested";
 
 export const router = createBrowserRouter([
   {
@@ -32,34 +33,37 @@ export const router = createBrowserRouter([
         element: <Coverage />,
       },
       {
+        path: "trello",
+
+        Component: Nested,
+      },
+      {
         path: "price",
         loader: () => fetch("./warehouses.json"),
         element: <AddParcelForm />,
       },
       {
         path: "AboutUs",
-      
+
         element: <AboutUs />,
-        children:[
+        children: [
           {
             index: true,
-            Component: Story
+            Component: Story,
           },
           {
-            path:'mission',
-            Component: Mission
+            path: "mission",
+            Component: Mission,
           },
           {
-            path:'success',
-            Component: Success
+            path: "success",
+            Component: Success,
           },
           {
-            path:'team',
-            Component: Team
+            path: "team",
+            Component: Team,
           },
-
-
-        ]
+        ],
       },
       {
         path: "beRider",
@@ -102,7 +106,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "payment/:id",
-        element: <Payment></Payment>
+        element: <Payment></Payment>,
       },
     ],
   },
