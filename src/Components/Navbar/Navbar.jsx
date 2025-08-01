@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router";
 import Logo from "../Logo/Logo";
 import useAuthContext from "../../Hooks/useAuthContext";
 
 const Navbar = () => {
-  const { user } = useAuthContext();
+  const { user,Logout } = useAuthContext();
+  const [clicked,setClicked]=useState(false);
+  const handleDp = ()=>{
+    setClicked(!clicked);
+  }
   const navLink = (
     <ul className="space-x-4">
       <NavLink to={"/"}>Home</NavLink>
@@ -48,15 +52,23 @@ const Navbar = () => {
         </div>
         <Logo></Logo>
       </div>
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-center hidden lg:flex ">
+        
         <ul className="menu menu-horizontal px-1">{navLink}</ul>
-      </div>
-      {user ? (
-        <div className="avatar">
-          <div className="ring-primary ring-offset-base-100 w-16 h-16 rounded-full ring-2 ring-offset-2">
+
+          {user ? (
+        <div onClick={handleDp} className="avatar relative">
+          <div  className="ring-primary ring-offset-base-100 w-16 h-16 rounded-full ring-2 ring-offset-2">
             <img src={user?.photoURL} />
           </div>
+          {
+  clicked && <div className="bg-gray-400 rounded-md p-4 transition-all ease-in-out duration-300 absolute mt-16">
+    <p>{user?.displayName}</p>
+    <button onClick={()=>Logout()} className="btn btn-secondary text-white">logOut</button>
+  </div>
+}
         </div>
+       
       ) : (
         <div className="navbar-end space-x-1 mr-6">
           <Link to={"/auth/login"}>
@@ -67,6 +79,11 @@ const Navbar = () => {
           </Link>
         </div>
       )}
+      
+
+
+      </div>
+    
     </div>
   );
 };
