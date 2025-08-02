@@ -18,6 +18,7 @@ import Story from "../Pages/AboutUs/AboutPages/Story";
 import Mission from "../Pages/AboutUs/AboutPages/Mission";
 import Success from "../Pages/AboutUs/AboutPages/Success";
 import Team from "../Pages/AboutUs/AboutPages/Team";
+import Pricing from "../Pages/Pricing/Pricing";
 
 
 export const router = createBrowserRouter([
@@ -37,6 +38,11 @@ export const router = createBrowserRouter([
         path: "price",
         loader: () => fetch("./warehouses.json"),
         element: <AddParcelForm />,
+      },
+      {
+        path: "pricing",
+      
+        element: <Pricing></Pricing>
       },
       {
         path: "AboutUs",

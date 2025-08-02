@@ -1,9 +1,11 @@
 import React from 'react';
 import AboutNav from './AboutNav';
 import { Outlet } from 'react-router';
+import useTitle from '../../Hooks/useTitle';
 
 
 const AboutUs = () => {
+    useTitle('AboutUs')
     return (
         <div className='w-11/12 mx-auto my-12'>
             <h1 className='text-secondary text-5xl font-extrabold'>About Us</h1>
