@@ -4,11 +4,11 @@ import Logo from "../Logo/Logo";
 import useAuthContext from "../../Hooks/useAuthContext";
 
 const Navbar = () => {
-  const { user,Logout } = useAuthContext();
-  const [clicked,setClicked]=useState(false);
-  const handleDp = ()=>{
+  const { user, Logout } = useAuthContext();
+  const [clicked, setClicked] = useState(false);
+  const handleDp = () => {
     setClicked(!clicked);
-  }
+  };
   const navLink = (
     <ul className="space-x-4">
       <NavLink to={"/"}>Home</NavLink>
@@ -16,9 +16,12 @@ const Navbar = () => {
       <NavLink to={"/coverage"}>coverage</NavLink>
       <NavLink to={"/AboutUs"}>about us</NavLink>
       <NavLink to={"/price"}>pricing</NavLink>
-      <NavLink to={"/beRider"}>be a Rider</NavLink>
-      <NavLink to={"/dashboard"}>Dashboard</NavLink>
-      <NavLink to={"/trello"}>TrelloMeets</NavLink>
+      {user && (
+        <>
+          <NavLink to={"/beRider"}>be a Rider</NavLink>
+          <NavLink to={"/dashboard"}>Dashboard</NavLink>
+        </>
+      )}
     </ul>
   );
 
@@ -53,37 +56,37 @@ const Navbar = () => {
         <Logo></Logo>
       </div>
       <div className="navbar-center hidden lg:flex ">
-        
         <ul className="menu menu-horizontal px-1">{navLink}</ul>
-
-          {user ? (
-        <div onClick={handleDp} className="avatar relative">
-          <div  className="ring-primary ring-offset-base-100 w-16 h-16 rounded-full ring-2 ring-offset-2">
-            <img src={user?.photoURL} />
-          </div>
-          {
-  clicked && <div className="bg-gray-400 rounded-md p-4 transition-all ease-in-out duration-300 absolute mt-16">
-    <p>{user?.displayName}</p>
-    <button onClick={()=>Logout()} className="btn btn-secondary text-white">logOut</button>
-  </div>
-}
-        </div>
-       
-      ) : (
-        <div className="navbar-end space-x-1 mr-6">
-          <Link to={"/auth/login"}>
-            <button className="btn ">sign in</button>
-          </Link>
-          <Link to={"/beRider"}>
-            <button className="btn btn-primary text-black">be a rider</button>
-          </Link>
-        </div>
-      )}
-      
-
-
       </div>
-    
+      <div className="navbar-end space-x-1 mr-6">
+        {user ? (
+          <div onClick={handleDp} className="avatar relative">
+            <div className="ring-primary ring-offset-base-100 w-12 h-12 rounded-full ring-2 ring-offset-2">
+              <img src={user?.photoURL} />
+            </div>
+            {clicked && (
+              <div className="bg-gray-400 rounded-md p-4 transition-all ease-in-out duration-300 absolute mt-16 -ml-20 z-10">
+                <p>{user?.displayName}</p>
+                <button
+                  onClick={() => Logout()}
+                  className="btn btn-secondary text-white"
+                >
+                  logOut
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="space-x-2">
+            <Link to={"/auth/login"}>
+              <button className="btn ">sign in</button>
+            </Link>
+            <Link to={"/beRider"}>
+              <button className="btn btn-primary text-black">be a rider</button>
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

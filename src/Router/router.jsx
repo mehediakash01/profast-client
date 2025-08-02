@@ -18,7 +18,7 @@ import Story from "../Pages/AboutUs/AboutPages/Story";
 import Mission from "../Pages/AboutUs/AboutPages/Mission";
 import Success from "../Pages/AboutUs/AboutPages/Success";
 import Team from "../Pages/AboutUs/AboutPages/Team";
-import Nested from "../Components/Practice/Nested";
+
 
 export const router = createBrowserRouter([
   {
@@ -32,11 +32,7 @@ export const router = createBrowserRouter([
         loader: () => fetch("./warehouses.json"),
         element: <Coverage />,
       },
-      {
-        path: "trello",
-
-        Component: Nested,
-      },
+  
       {
         path: "price",
         loader: () => fetch("./warehouses.json"),
