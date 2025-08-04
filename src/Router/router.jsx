@@ -19,6 +19,7 @@ import Mission from "../Pages/AboutUs/AboutPages/Mission";
 import Success from "../Pages/AboutUs/AboutPages/Success";
 import Team from "../Pages/AboutUs/AboutPages/Team";
 import Pricing from "../Pages/Pricing/Pricing";
+import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 
 
 export const router = createBrowserRouter([
@@ -109,6 +110,10 @@ export const router = createBrowserRouter([
       {
         path: "payment/:id",
         element: <Payment></Payment>,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory></PaymentHistory>
       },
     ],
   },
