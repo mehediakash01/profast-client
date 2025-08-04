@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import { FaEye, FaTrash, FaMoneyBill } from 'react-icons/fa';
+import { useNavigate } from 'react-router';
 
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import useAuthContext from '../../Hooks/useAuthContext';
 import Loading from '../../Featurers/Loading/Loading';
-import { FaEye, FaTrash, FaMoneyBill } from 'react-icons/fa';
-import { useNavigate } from 'react-router';
 
 const MyParcel = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  const [selectedParcel, setSelectedParcel] = useState(null);
 
   const {
     data: parcels = [],
@@ -29,8 +30,7 @@ const MyParcel = () => {
   });
 
   const handleView = (parcel) => {
-    console.log('View:', parcel);
-    // TODO: Implement modal or route navigation
+    setSelectedParcel(parcel);
   };
 
   const handlePay = (parcelId) => {
@@ -138,6 +138,64 @@ const MyParcel = () => {
           ))}
         </tbody>
       </table>
+
+      {/* Modal */}
+      {selectedParcel && (
+        <div className="fixed inset-0 bg-secondary bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl relative max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setSelectedParcel(null)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-black text-xl"
+            >
+              ✕
+            </button>
+            <h3 className="text-2xl font-bold mb-4">Parcel Details</h3>
+
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p><strong>Parcel Name:</strong> {selectedParcel.parcelName}</p>
+                <p><strong>Type:</strong> {selectedParcel.parcelType}</p>
+                <p><strong>Weight:</strong> {selectedParcel.parcelWeight} kg</p>
+                <p><strong>Cost:</strong> ${selectedParcel.cost}</p>
+                <p><strong>Payment:</strong> {selectedParcel.paymentStatus}</p>
+                <p><strong>Status:</strong> {selectedParcel.deliveryStatus}</p>
+                <p><strong>Tracking ID:</strong> {selectedParcel.trackingId}</p>
+                <p><strong>Created At:</strong> {new Date(selectedParcel.createdAt).toLocaleString('en-BD')}</p>
+              </div>
+
+              <div>
+                <p className="font-semibold mt-2">Sender Info</p>
+                <p><strong>Name:</strong> {selectedParcel.senderName}</p>
+                <p><strong>Contact:</strong> {selectedParcel.senderContact}</p>
+                <p><strong>Address:</strong> {selectedParcel.senderAddress}</p>
+                <p><strong>District:</strong> {selectedParcel.senderDistrict}</p>
+                <p><strong>Region:</strong> {selectedParcel.senderRegion}</p>
+
+                <p className="font-semibold mt-2">Receiver Info</p>
+                <p><strong>Name:</strong> {selectedParcel.receiverName}</p>
+                <p><strong>Contact:</strong> {selectedParcel.receiverContact}</p>
+                <p><strong>Address:</strong> {selectedParcel.receiverAddress}</p>
+                <p><strong>District:</strong> {selectedParcel.receiverDistrict}</p>
+                <p><strong>Region:</strong> {selectedParcel.receiverRegion}</p>
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <p><strong>Pickup Instruction:</strong> {selectedParcel.pickupInstruction}</p>
+              <p><strong>Delivery Instruction:</strong> {selectedParcel.deliveryInstruction}</p>
+            </div>
+
+            <div className="mt-6 text-right">
+              <button
+                onClick={() => setSelectedParcel(null)}
+                className="btn btn-sm btn-primary text-black"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
