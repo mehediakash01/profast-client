@@ -1,7 +1,13 @@
 import React from "react";
-import { Outlet, NavLink } from "react-router";
+import { Outlet, NavLink, Link } from "react-router";
 import Logo from "../../Components/Logo/Logo";
-
+import {
+  FaHome,
+  FaBox,
+  FaCreditCard,
+  FaMapMarkerAlt,
+  FaUserEdit,
+} from "react-icons/fa";
 const DashboardLayout = () => {
   return (
     <div className="drawer lg:drawer-open">
@@ -49,10 +55,29 @@ const DashboardLayout = () => {
           {/* Sidebar content here */}
           <Logo></Logo>
           <li>
-            <NavLink to="/dashboard">DashHome</NavLink>
+            <Link to="/dashboard">
+              <FaHome className="inline mr-2" /> DashHome
+            </Link>
           </li>
           <li>
-            <NavLink to="/dashboard/my-Parcel">My Parcel</NavLink>
+            <NavLink to="/dashboard/my-Parcel">
+              <FaBox className="inline mr-2" /> My Parcel
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/payment-history">
+              <FaCreditCard className="inline mr-2" /> Payment History
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/track-package">
+              <FaMapMarkerAlt className="inline mr-2" /> Track a Package
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/update-profile">
+              <FaUserEdit className="inline mr-2" /> Update Profile
+            </NavLink>
           </li>
         </ul>
       </div>
