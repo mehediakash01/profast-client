@@ -2,15 +2,16 @@ import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import useTitle from "../../Hooks/useTitle";
 import { useLoaderData } from "react-router";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAuthContext from "../../Hooks/useAuthContext";
+import Swal from "sweetalert2";
 
 const BeRider = () => {
-  const { register, handleSubmit, control } = useForm();
+  const { register, handleSubmit, control, reset } = useForm();
   const warehouseData = useLoaderData();
   useTitle("Be-Rider");
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuthContext();
 
   // Watch selected region
   const selectedRegion = useWatch({
@@ -19,14 +20,37 @@ const BeRider = () => {
   });
 
   // Extract unique regions
-  const uniqueRegions = [
-    ...new Set(warehouseData.map((wh) => wh.region)),
-  ];
+  const uniqueRegions = [...new Set(warehouseData.map((wh) => wh.region))];
 
   // Filter warehouses by selected region
   const filteredWarehouses = warehouseData.filter(
     (wh) => wh.region === selectedRegion
   );
+
+  const onSubmit = async (data) => {
+    const riderData = {
+      ...data,
+      name: user?.displayName || "",
+      email: user?.email || "",
+      status: "pending",
+      created_at: new Date().toISOString(),
+    };
+
+    console.log("Rider Application:", riderData);
+
+    axiosSecure.post("/riders", riderData).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire({
+          icon: "success",
+          title: "Application Submitted!",
+          text: "Your application is pending approval.",
+        });
+      }
+    });
+
+    // Send to your backend here
+    reset();
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-base-100 shadow-lg rounded-xl my-24">
@@ -152,9 +176,7 @@ const BeRider = () => {
 
         {/* Submit */}
         <div className="mt-8 text-center">
-          <button className="btn btn-primary w-full text-black">
-            Submit
-          </button>
+          <button className="btn btn-primary w-full text-black">Submit</button>
         </div>
       </form>
     </div>
