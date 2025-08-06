@@ -5,11 +5,12 @@ import { FaEye, FaCheck, FaTimes } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../Featurers/Loading/Loading";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useTitle from "../../../Hooks/useTitle";
 
 const PendingRiders = () => {
     const [selectedRider, setSelectedRider] = useState(null);
     const axiosSecure = useAxiosSecure();
-
+ useTitle("Pending-Rider");
     const { isPending, data: riders = [], refetch } = useQuery({
         queryKey: ['pending-riders'],
         queryFn: async () => {
