@@ -21,6 +21,7 @@ import Team from "../Pages/AboutUs/AboutPages/Team";
 import Pricing from "../Pages/Pricing/Pricing";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import PendingRiders from "../Layout/Dashboard/PendingRiders/PendingRiders";
+import ActiveRiders from "../Layout/Dashboard/ActiveRiders/ActiveRiders";
 
 
 export const router = createBrowserRouter([
@@ -120,6 +121,10 @@ export const router = createBrowserRouter([
         path: 'pending-riders',
         element: <PendingRiders></PendingRiders>
       },
+        {
+        path: 'active-riders',
+        element: <ActiveRiders></ActiveRiders>
+      }
     ],
   },
 ]);
